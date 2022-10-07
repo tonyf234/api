@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelizeConnection = {
+const db = {
     dialect: 'mysql',
     host: 'localhost',
     database: 'schema',
@@ -8,6 +8,6 @@ const sequelizeConnection = {
     password: 'password'
 };
 
-const sequelize = new Sequelize(database, user, password, { dialect, host });
+const sequelize = new Sequelize(db.database, db.user, db.password, { dialect: db.dialect, host: db.host });
 
 module.exports = sequelize;

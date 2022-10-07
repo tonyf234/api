@@ -8,8 +8,10 @@ app.use((req, res, next) => {
 });
 
 sequelize
-	.sync({ force })
+	.sync({ force: true })
 	.then(result => {
-		app.listen(3000);
+		const PORT = process.env.PORT || 3000
+		app.listen(PORT);
+		console.log(`app running on port ${PORT}`);
 	})
 	.catch(err => console.log(err));
