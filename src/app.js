@@ -1,16 +1,22 @@
 const path = require('path');
 
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const sequelize = require('./utils/database');
+const router = require('./routers/router')
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 const env_path = path.resolve(__dirname, './../.env');
 require('dotenv').config({ path: env_path });
-console.log('env_path', env_path);
 
+app.use(router);
 app.use((req, res, next) => {
-	res.send('Hello world!');
+	res.status(404).send('Not Found');
 });
 
 sequelize
