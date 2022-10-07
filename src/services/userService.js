@@ -1,5 +1,9 @@
 const User = require('../entities/userEntity');
 
+exports.getAllUsers = () => {
+    return User.findAll();
+}
+
 exports.findUser = (id) => {
 
     if (typeof id !== 'number')
