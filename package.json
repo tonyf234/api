@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start:dev": "NODE_ENV='development' node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dependency": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependencygraph.svg"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "sequelize": "^6.24.0"
   },
   "devDependencies": {
+    "dependency-cruiser": "^11.16.1",
     "nodemon": "^2.0.20"
   }
 }
