@@ -1,4 +1,4 @@
-const userService = require('userService');
+const userService = require('./userService');
 
 exports.signupEmail = (lastname, firstname, email, extra) => {
 
