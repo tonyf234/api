@@ -5,11 +5,12 @@ const signupPhone = (body) => {
     const firstname = body.firstname;
     const phone = body.phone;
     const email = body.email;
+    const password = body.password;
     const extra = {}
     if (email)
         extra.email = email
 
-    authService.signupPhone(lastname, firstname, phone, extra);
+    authService.signupPhone(lastname, firstname, phone, password, extra);
 }
 
 const signupEmail = (body) => {
@@ -17,11 +18,12 @@ const signupEmail = (body) => {
     const firstname = body.firstname;
     const phone = body.phone;
     const email = body.email;
+    const password = body.password;
     const extra = {}
     if (phone)
         extra.phone = phone;
 
-    authService.signupEmail(lastname, firstname, email, extra);
+    authService.signupEmail(lastname, firstname, email, password, extra);
 }
 
 exports.signup = (req, res, next) => {
@@ -58,7 +60,7 @@ exports.signup = (req, res, next) => {
         return res.status(400).send('failed to signup');
     }
 
-    console.log(`{ email: ${req.email}, phone: ${req.phone}} account created successfully`)
+    console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account created successfully`)
     return res.status(200).send('account created');
 }
 
@@ -97,6 +99,6 @@ exports.signin = (req, res, next) => {
         return res.status(400).send('failed to signin');
     }
 
-    console.log(`{ email: ${req.email}, phone: ${req.phone}} account logged successfully`)
+    console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account logged successfully`)
     return res.status(200).send('logged');
 }

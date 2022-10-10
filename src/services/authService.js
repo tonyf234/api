@@ -1,11 +1,11 @@
 const userService = require('./userService');
 
-exports.signupEmail = (lastname, firstname, email, extra) => {
-    //TODO
+exports.signupEmail = (lastname, firstname, email, password, extra) => {
+    userService.createUser(lastname, firstname, email, extra.phone, password);
 }
 
-exports.signupPhone = (lastname, firstname, email, extra) => {
-    //TODO
+exports.signupPhone = (lastname, firstname, phone, password, extra) => {
+    userService.createUser(lastname, firstname, extra.email, phone, password);
 }
 
 exports.signinEmail = (email, password) => {
