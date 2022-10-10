@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start:dev": "NODE_ENV='development' node src/app.js",
+    "start:dev": "NODE_ENV='development' nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dependency": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependencygraph.svg"
   },

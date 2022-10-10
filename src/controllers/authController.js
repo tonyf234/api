@@ -21,15 +21,17 @@ const signupEmail = (body) => {
     if (phone)
         extra.phone = phone;
 
-    authService.signupPhone(lastname, firstname, email, extra);
+    authService.signupEmail(lastname, firstname, email, extra);
 }
 
 exports.signup = (req, res, next) => {
+    console.log('controller : signup');
     const pref = req.body.preference;
     const lastname = req.body.lastname;
     const firstname = req.body.firstname;
     const phone = req.body.phone;
     const email = req.body.email;
+    const password = req.body.password;
 
     const missingFields = {};
 
@@ -39,6 +41,8 @@ exports.signup = (req, res, next) => {
         missingFields.firstname = 'firstname is missing';
     if (!phone && !email)
         missingFields.phone_email = 'need a email and/or a phone number';
+    if (!password)
+        missingFields.password = 'password is missing';
 
     if (missingFields.length)
         return res.status(400).send(missingFields);
@@ -55,9 +59,44 @@ exports.signup = (req, res, next) => {
     }
 
     console.log(`{ email: ${req.email}, phone: ${req.phone}} account created successfully`)
-    res.status(200).send('account created');
+    return res.status(200).send('account created');
+}
+
+const signinPhone = (body) => {
+
+}
+
+const signinEmail = (body) => {
+
 }
 
 exports.signin = (req, res, next) => {
-    authService.signin();
+    console.log('controller : signin');
+    const phone = req.body.phone;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const missingFields = {};
+
+    if (!phone && !email)
+        missingFields.phone_email = 'need a email and/or a phone number';
+    if (!password)
+        missingFields.password = 'password is missing';
+
+    if (missingFields.length)
+        return res.status(400).send(missingFields);
+
+    try {
+        if (phone) { // phone
+            signinPhone(body);
+        } else { // email
+            signinEmail(body);
+        }
+    } catch (e) {
+        console.log('failed to signin', e);
+        return res.status(400).send('failed to signin');
+    }
+
+    console.log(`{ email: ${req.email}, phone: ${req.phone}} account logged successfully`)
+    return res.status(200).send('logged');
 }
