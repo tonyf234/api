@@ -25,9 +25,27 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
         throw new TypeError('the password must be a string');
     if (!email && !phone)
         throw new Error('must have a email and/or a phone number');
+
+    // check if email or phone number already used
+
+    const already_used = {};
+    if (email) {
+        const testEmail = await User.findAll({ where: { email }});
+        console.log('testEmail', testEmail);
+        if (testEmail.length)
+            throw new Error('email already used');
+    }
+
+    if (phone) {
+        const testPhone = await User.findAll({ where: { phone }});
+        console.log('testPhone', testPhone);
+        if (testPhone.length)
+            throw new Error('email already used');
+    }
+
     const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: password});
     return user.save();
-    }
+}
 
 
 exports.deleteUser = (id) => {
