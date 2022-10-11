@@ -1,15 +1,32 @@
+const bcrypt = require('bcryptjs');
+
 const User = require('../entities/userEntity');
 
 exports.getAllUsers = () => {
     return User.findAll();
 }
 
-exports.findUser = (id) => {
+exports.findUserId = (id) => {
 
     if (typeof id !== 'number')
         throw new TypeError('the id must be a number');
 
     return User.findOne({ where: { id }})
+}
+
+exports.findUserEmail = (email) => {
+
+    if (typeof email !== 'string')
+        throw new TypeError('the email must be a string');
+
+    return User.findOne({ where: { email }})
+}
+
+exports.findUserPhone = (phone) => {
+    if (typeof phone !== 'string')
+        throw new TypeError('the phone number must be a string');
+
+    return User.findOne({ where: { phone }});
 }
 
 exports.createUser = async (lastname, firstname, email, phone, password) => {
@@ -26,9 +43,6 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
     if (!email && !phone)
         throw new Error('must have a email and/or a phone number');
 
-    // check if email or phone number already used
-
-    const already_used = {};
     if (email) {
         const testEmail = await User.findAll({ where: { email }});
         console.log('testEmail', testEmail);
@@ -40,11 +54,21 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
         const testPhone = await User.findAll({ where: { phone }});
         console.log('testPhone', testPhone);
         if (testPhone.length)
-            throw new Error('email already used');
+            throw new Error('phone number already used');
     }
 
-    const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: password});
-    return user.save();
+    try {
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: hashedPassword});
+        await user.save();
+
+        return true;
+
+    } catch (e) {
+        console.log(e);
+    }
+
+    return false;
 }
 
 

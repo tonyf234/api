@@ -88,17 +88,30 @@ exports.signin = (req, res, next) => {
     if (missingFields.length)
         return res.status(400).send(missingFields);
 
+    let logged = false;
+
     try {
         if (phone) { // phone
-            signinPhone(body);
+            logged = signinPhone(body);
         } else { // email
-            signinEmail(body);
+            logged = signinEmail(body);
         }
     } catch (e) {
         console.log('failed to signin', e);
         return res.status(400).send('failed to signin');
     }
 
-    console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account logged successfully`)
-    return res.status(200).send('logged');
+    req.session.isLogged = logged;
+
+    if (logged) {
+        console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account logged successfully`)
+        return res.status(200).send('logged');
+    }
+
+    return res.status(400).send('failed to signin');
 }
+
+exports.signout = (req, res, next) => {
+    req.session.isLogged = false;
+    req.session.destroy(err => console.log(err));
+};
