@@ -6,8 +6,8 @@ switch (process.env.NODE_ENV) {
         db.dialect = 'mysql';
         db.host = 'localhost';
         db.database = 'schema';
-        db.user = 'root';
-        db.password = 'password'
+        db.user = 'yann';
+        db.password = 'iPhoneSE11'
         break;
     case 'test':
         db.dialect = 'sqlite';

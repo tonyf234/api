@@ -36,7 +36,7 @@ sequelize
 	// .sync({ force: process.env.NODE_ENV !== 'production' })
 	.sync({ force: false })
 	.then(result => {
-		const PORT = parseInt(process.env.PORT) || 3000
+		const PORT = parseInt(process.env.PORT) || 8000
 		app.listen(PORT);
 		console.log(`app running on port ${PORT}`);
 	})

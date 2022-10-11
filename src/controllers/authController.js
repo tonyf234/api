@@ -64,11 +64,39 @@ exports.signup = (req, res, next) => {
     return res.status(200).send('account created');
 }
 
-const signinPhone = (body) => {
+const signinPhone = (req, res, next) => {
+    const phone = req.body.phone;
+    const password = req.body.password;
+
+    const missingFields = {};
+
+    if (!phone)
+        missingFields.phone = 'need a email';
+    if (!password)
+        missingFields.password = 'password is missing';
+
+    if (missingFields.length)
+        return res.status(400).send(missingFields);
+    const logged = authService.signinPhone(phone, password)
+    return logged;
 
 }
 
-const signinEmail = (body) => {
+const signinEmail = (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const missingFields = {};
+
+    if (!email)
+        missingFields.email = 'need a email';
+    if (!password)
+        missingFields.password = 'password is missing';
+
+    if (missingFields.length)
+        return res.status(400).send(missingFields);
+    const logged = authService.signinEmail(email, password)
+    return logged;
 
 }
 
@@ -90,15 +118,17 @@ exports.signin = (req, res, next) => {
 
     let logged = false;
 
+
     try {
         if (phone) { // phone
-            logged = signinPhone(body);
+            logged = signinPhone(req);
         } else { // email
-            logged = signinEmail(body);
+            console.log(email)
+            logged = signinEmail(req);
         }
     } catch (e) {
         console.log('failed to signin', e);
-        return res.status(400).send('failed to signin');
+        return res.status(400).send('failed to signin 1');
     }
 
     req.session.isLogged = logged;
@@ -108,7 +138,7 @@ exports.signin = (req, res, next) => {
         return res.status(200).send('logged');
     }
 
-    return res.status(400).send('failed to signin');
+    return res.status(400).send('failed to signin 2');
 }
 
 exports.signout = (req, res, next) => {
