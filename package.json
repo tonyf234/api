@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start:dev": "NODE_ENV='development' nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV='test' mocha",
     "dependency": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependencygraph.svg"
   },
   "repository": {
@@ -22,13 +22,16 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "chai": "^4.3.6",
     "connect-session-sequelize": "^7.1.5",
     "csrf": "^3.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "mocha": "^10.0.0",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.24.0"
+    "sequelize": "^6.24.0",
+    "sqlite3": "^5.1.2"
   },
   "devDependencies": {
     "dependency-cruiser": "^11.16.1",
