@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sequelize = require('./utils/database');
 const router = require('./routers/router')
@@ -15,11 +15,11 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use(session({
 	secret: 'secret string jfslkfjklsdfjkldjskl',
-	resave: false,
-	saveUninitialized: false,
-	store: SequelizeStore({
+	store: new SequelizeStore({
 		db: sequelize,
 	}),
+	resave: false,
+	saveUninitialized: false,
 	// cookies: {...},
 	// proxy: true,
 }));
