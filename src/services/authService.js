@@ -12,10 +12,7 @@ exports.signupPhone = (lastname, firstname, phone, password, extra) => {
 
 exports.signinEmail = async (email, password) => {
     //TODO
-    console.log(email + "yes")
     const user = await userService.findUserEmail(email);
-    console.log(email)
-    console.log(user)
     if (!user)
         return false;
 
