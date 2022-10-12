@@ -46,7 +46,7 @@ exports.signup = (req, res, next) => {
     if (!password)
         missingFields.password = 'password is missing';
 
-    if (missingFields.length)
+    if (Object.entries(missingFields).length)
         return res.status(400).send(missingFields);
 
     let success = false

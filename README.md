@@ -2,7 +2,7 @@
 download npm packages:
 `npm install`
 
-copy the '.env_sample' file to '.env' before running any script
+copy the '.env.sample' file to '.env' before running any script
 `cp .env_sample .env`
 
 run development:

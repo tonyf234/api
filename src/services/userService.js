@@ -51,14 +51,12 @@ exports.createUser = async (lastname, firstname, email, phone, password, extra) 
 
     if (email) {
         const testEmail = await User.findAll({ where: { email }});
-        console.log('testEmail', testEmail);
         if (testEmail.length)
             throw new Error('email already used');
     }
 
     if (phone) {
         const testPhone = await User.findAll({ where: { phone }});
-        console.log('testPhone', testPhone);
         if (testPhone.length)
             throw new Error('phone number already used');
     }
