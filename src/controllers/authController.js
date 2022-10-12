@@ -150,3 +150,7 @@ exports.signout = (req, res, next) => {
     req.session.isLogged = false;
     req.session.destroy(err => console.log(err));
 };
+
+exports.testpage = (req, res, next) => {
+    return res.status(200).send('If you see it, that means you are connected with an account');
+};
