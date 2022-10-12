@@ -22,7 +22,7 @@ switch (process.env.NODE_ENV) {
         break;
     default:
         throw new Error('unknown environment');
-}
+};
 
 const sequelize = new Sequelize(db.database, db.user, db.password, { dialect: db.dialect, host: db.host });
 
