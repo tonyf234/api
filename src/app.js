@@ -29,7 +29,11 @@ require('dotenv').config({ path: env_path });
 
 app.use(router);
 app.use((req, res, next) => {
-	res.status(404).send('Not Found');
+	if (process.env.NODE_ENV === 'development')
+		return res.status(404).send('Not Found\nPlease check method and endpoint...');
+	if (process.env.NODE_ENV === 'test')
+		return res.status(404).send('Not Found\nError in test file (check method and endpoint...)');
+	return res.status(404).send('Not Found');
 });
 
 sequelize

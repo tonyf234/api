@@ -10,7 +10,7 @@ const signupPhone = (body) => {
     if (email)
         extra.email = email
 
-    authService.signupPhone(lastname, firstname, phone, password, extra);
+    return authService.signupPhone(lastname, firstname, phone, password, extra);
 }
 
 const signupEmail = (body) => {
@@ -23,7 +23,7 @@ const signupEmail = (body) => {
     if (phone)
         extra.phone = phone;
 
-    authService.signupEmail(lastname, firstname, email, password, extra);
+    return authService.signupEmail(lastname, firstname, email, password, extra);
 }
 
 exports.signup = (req, res, next) => {

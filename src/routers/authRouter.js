@@ -9,6 +9,8 @@ router.post('/signup', authController.signup);
 
 router.post('/signin', authController.signin);
 
+router.post('/signout', authGuard, authController.signout);
+
 router.get('/test', authGuard, authController.testpage);
 
 module.exports = router;
