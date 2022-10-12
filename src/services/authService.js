@@ -4,12 +4,12 @@ const userService = require('./userService');
 
 exports.signupEmail = (lastname, firstname, email, password, extra) => {
     // TODO : send a validation code to the user email
-    return userService.createUser(lastname, firstname, email, extra.phone, password);
+    return userService.createUser(lastname, firstname, email, extra.phone, password, extra);
 }
 
 exports.signupPhone = (lastname, firstname, phone, password, extra) => {
     // TODO : send a validation code to the user phone
-    return userService.createUser(lastname, firstname, extra.email, phone, password);
+    return userService.createUser(lastname, firstname, extra.email, phone, password, extra);
 }
 
 exports.signinEmail = async (email, password) => {

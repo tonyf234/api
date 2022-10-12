@@ -6,9 +6,12 @@ const signupPhone = (body) => {
     const phone = body.phone;
     const email = body.email;
     const password = body.password;
+    const birthdate = body.birthdate;
     const extra = {}
     if (email)
         extra.email = email
+    if (birthdate)
+        extra.birthdate = birthdate;
 
     return authService.signupPhone(lastname, firstname, phone, password, extra);
 }
@@ -19,15 +22,17 @@ const signupEmail = (body) => {
     const phone = body.phone;
     const email = body.email;
     const password = body.password;
+    const birthdate = body.birthdate;
     const extra = {}
     if (phone)
         extra.phone = phone;
+    if (birthdate)
+        extra.birthdate = birthdate;
 
     return authService.signupEmail(lastname, firstname, email, password, extra);
 }
 
-exports.signup = (req, res, next) => {
-    console.log('controller : signup');
+exports.signup = async (req, res, next) => {
     const pref = req.body.preference;
     const lastname = req.body.lastname;
     const firstname = req.body.firstname;
@@ -52,13 +57,13 @@ exports.signup = (req, res, next) => {
     let success = false
     try {
         if ((pref === 'phone' && phone) || (pref !== 'mail' && phone)) {
-            success = signupPhone(req.body);
+            success = await signupPhone(req.body);
         } else {
-            success = signupEmail(req.body);
+            success = await signupEmail(req.body);
         }
     } catch (e) {
         console.log('failed to signup', e);
-        return res.status(400).send('failed to signup (error)');
+        return res.status(400).send((JSON.parse(e.toString().split('Error: ')[1])));
     }
 
     if (success) {
@@ -106,7 +111,6 @@ const signinEmail = (req, res, next) => {
 }
 
 exports.signin = (req, res, next) => {
-    console.log('controller : signin');
     const phone = req.body.phone;
     const email = req.body.email;
     const password = req.body.password;
@@ -128,7 +132,6 @@ exports.signin = (req, res, next) => {
         if (phone) { // phone
             logged = signinPhone(req);
         } else { // email
-            console.log(email)
             logged = signinEmail(req);
         }
     } catch (e) {

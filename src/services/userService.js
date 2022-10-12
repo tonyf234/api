@@ -34,36 +34,49 @@ exports.createUser = async (lastname, firstname, email, phone, password, extra) 
     if (typeof extra === 'undefined')
         extra = {};
 
+    let missingFields = {};
     if (!firstname || typeof firstname !== 'string')
-        throw new TypeError('the firstname must be a string');
+        missingFields.firstname = 'the firstname must be a string';
     if (!lastname || typeof lastname !== 'string')
-        throw new TypeError('the lastname must be a string');
+        missingFields.lastname = 'the lastname must be a string';
     if (email && typeof email !== 'string')
-        throw new TypeError('the email must be a string');
+        missingFields.email = 'the email must be a string';
     if (phone && typeof phone !== 'string')
-        throw new TypeError('the phone number must be a string');
+        missingFields.phone = 'the phone must be a string';
     if (!password || typeof password !== 'string')
-        throw new TypeError('the password must be a string');
+        missingFields.password = 'the password must be a string';
     if (!email && !phone)
-        throw new Error('must have a email and/or a phone number');
+        missingFields.phone_email = 'need a email and/or a phone number';
     if (extra.birthdate && typeof extra.birthdate !== 'string')
-        throw new Error('the birthdate must be a string');
+        missingFields.birthdate= 'the birthdate must be a string';
 
-    if (email) {
+
+    if (email && typeof email === 'string') {
         const testEmail = await User.findAll({ where: { email }});
         if (testEmail.length)
-            throw new Error('email already used');
+            missingFields.email = 'email already used';
     }
 
-    if (phone) {
+    if (phone && typeof phone === 'string') {
         const testPhone = await User.findAll({ where: { phone }});
         if (testPhone.length)
-            throw new Error('phone number already used');
+            missingFields.phone = 'phone number already used';
+    }
+
+    if (Object.entries(missingFields).length) {
+        throw new Error(JSON.stringify(missingFields));
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: hashedPassword, birthdate: extra.birthdate });
+        const user = await User.create({
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            password: hashedPassword,
+            birthdate: extra.birthdate
+        });
         await user.save();
 
         return true;
