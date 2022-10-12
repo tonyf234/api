@@ -13,16 +13,16 @@ run test:
 
 ## <u>Endpoints</u> :
 - /users
-    - GET / : get all users
+    - / (GET) : get all users
 - /auth
-  - POST /signup 
+  - /signup (POST)
     - fields required: firsname, lastname, email and/or phone, password
 	- addictional fields: birthdate, pref ('phone'|'email')
-  - POST /signin 
+  - /signin (POST)
 	- fields required: email or phone, password
-  - POST /signout
+  - /signout (POST)
 	- authentication required
-  - GET /test : test page to test guard
+  - /test (GET) : test page to test guard
 	- authentication required
 
 ## <u>workflow</u> :
