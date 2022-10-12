@@ -154,6 +154,7 @@ exports.signin = (req, res, next) => {
 exports.signout = (req, res, next) => {
     req.session.isLogged = false;
     req.session.destroy(err => console.log(err));
+    res.status(200).send('Signout');
 };
 
 exports.testpage = (req, res, next) => {
