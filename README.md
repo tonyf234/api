@@ -14,6 +14,10 @@ run test:
 ## <u>Endpoints</u> :
 - /users
     - / (GET) : get all users
+		- admin required
+	- /connected (GET) : get number of user connected
+	- /me (GET) : get user personal info
+		- authentication required
 - /auth
   - /signup (POST)
     - fields required: firsname, lastname, email and/or phone, password
@@ -35,9 +39,7 @@ run test:
 
 ***
 Feature ideas:
-- admin guard for routes .../users/
-- number of users connected in .../users/connected
-- see your user profil in .../users/me
+...
 
 ***
 Project info:
