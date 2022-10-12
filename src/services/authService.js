@@ -17,9 +17,13 @@ exports.signinEmail = async (email, password) => {
     if (!user)
         return false;
 
-    const matchingPassword = bcrypt.compare(password, user.password);
+    const matchingPassword = await bcrypt.compare(password, user.password);
 
-    return matchingPassword;
+    if (matchingPassword) {
+        return user.id;
+    }
+
+    return 0;
 };
 
 exports.signinPhone = async (phone, password) => {
@@ -27,7 +31,10 @@ exports.signinPhone = async (phone, password) => {
     if (!user)
         return false;
 
-    const matchingPassword = bcrypt.compare(password, user.password);
+    const matchingPassword = await bcrypt.compare(password, user.password);
 
-    return matchingPassword;
+    if (matchingPassword) {
+        return user.id;
+    }
+    return 0;
 };

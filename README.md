@@ -15,10 +15,15 @@ run test:
 - /users
     - GET / : get all users
 - /auth
-  - POST /signup
-  - POST /signin
+  - POST /signup 
+    - fields required: firsname, lastname, email and/or phone, password
+	- addictional fields: birthdate, pref ('phone'|'email')
+  - POST /signin 
+	- fields required: email or phone, password
   - POST /signout
+	- authentication required
   - GET /test : test page to test guard
+	- authentication required
 
 ## <u>workflow</u> :
 1. entity

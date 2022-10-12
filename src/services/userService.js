@@ -11,7 +11,7 @@ exports.findUserId = (id) => {
     if (typeof id !== 'number')
         throw new TypeError('the id must be a number');
 
-    return User.findAll({ where: { id }})[0];
+    return User.findOne({ where: { id: id } });
 }
 
 exports.findUserEmail = (email) => {
@@ -19,14 +19,14 @@ exports.findUserEmail = (email) => {
     if (typeof email !== 'string')
         throw new TypeError('the email must be a string');
 
-    return User.findAll({ where: { email }})[0];
+    return User.findOne({ where: { email }});
 }
 
 exports.findUserPhone = (phone) => {
     if (typeof phone !== 'string')
         throw new TypeError('the phone number must be a string');
 
-    return User.findAll({ where: { phone }})[0];
+    return User.findOne({ where: { phone }});
 }
 
 exports.createUser = async (lastname, firstname, email, phone, password, extra) => {
