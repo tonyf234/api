@@ -1,11 +1,12 @@
 const userService = require('../src/services/userService');
 
-const expect = require('chai').expect;
+const chai = require('chai');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+const { expect } = chai;
 
-it('', () => {
+chai.use(sinonChai);
 
-	// const result;
-	// const expected;
-	//
-	// expect(value).to.equal(expected);
+describe('User service', function () {
+
 });
