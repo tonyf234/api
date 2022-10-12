@@ -49,19 +49,24 @@ exports.signup = (req, res, next) => {
     if (missingFields.length)
         return res.status(400).send(missingFields);
 
+    let success = false
     try {
         if ((pref === 'phone' && phone) || (pref !== 'mail' && phone)) {
-            signupPhone(req.body);
+            success = signupPhone(req.body);
         } else {
-            signupEmail(req.body);
+            success = signupEmail(req.body);
         }
     } catch (e) {
         console.log('failed to signup', e);
-        return res.status(400).send('failed to signup');
+        return res.status(400).send('failed to signup (error)');
     }
 
-    console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account created successfully`)
-    return res.status(200).send('account created');
+    if (success) {
+        console.log(`{ email: ${req.body.email}, phone: ${req.body.phone}} account created successfully`)
+        return res.status(200).send('account created');
+    }
+
+    return res.status(400).send('failed to signup')
 }
 
 const signinPhone = (req, res, next) => {

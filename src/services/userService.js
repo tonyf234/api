@@ -29,7 +29,11 @@ exports.findUserPhone = (phone) => {
     return User.findOne({ where: { phone }});
 }
 
-exports.createUser = async (lastname, firstname, email, phone, password) => {
+exports.createUser = async (lastname, firstname, email, phone, password, extra) => {
+
+    if (typeof extra === 'undefined')
+        extra = {};
+
     if (!firstname || typeof firstname !== 'string')
         throw new TypeError('the firstname must be a string');
     if (!lastname || typeof lastname !== 'string')
@@ -42,6 +46,8 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
         throw new TypeError('the password must be a string');
     if (!email && !phone)
         throw new Error('must have a email and/or a phone number');
+    if (extra.birthdate && typeof extra.birthdate !== 'string')
+        throw new Error('the birthdate must be a string');
 
     if (email) {
         const testEmail = await User.findAll({ where: { email }});
@@ -59,7 +65,7 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
 
     try {
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: hashedPassword});
+        const user = await User.create({firstname: firstname, lastname: lastname, email: email, phone: phone, password: hashedPassword, birthdate: extra.birthdate });
         await user.save();
 
         return true;
@@ -75,10 +81,12 @@ exports.createUser = async (lastname, firstname, email, phone, password) => {
 exports.deleteUser = (id) => {
     if (!id || typeof id !== 'number')
         throw new TypeError('the id must be a number');
-    const user = findUser(id)
+
+    const user = this.findUserId(id)
     if (!user)
     {
         throw new TypeError('User not found')
     }
+
     return user.destroy();
 }
