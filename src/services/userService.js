@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 const User = require('../entities/userEntity');
+const sessionCount = require("../utils/sessionCount");
 
 exports.getAllUsers = () => {
     return User.findAll();
@@ -101,3 +102,7 @@ exports.deleteUser = (id) => {
 
     return user.destroy();
 }
+
+exports.getSessionCount = () => {
+    return sessionCount();
+};
