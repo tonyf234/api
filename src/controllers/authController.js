@@ -63,7 +63,9 @@ exports.signup = async (req, res, next) => {
         }
     } catch (e) {
         console.log('failed to signup', e);
-        return res.status(400).send((JSON.parse(e.toString().split('Error: ')[1])));
+        const errorString = e.toString().split('Error: ')[1]
+        const errorObj = JSON.parse(errorString);
+        return res.status(400).send(errorObj);
     }
 
     if (success) {

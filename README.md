@@ -13,12 +13,12 @@ run test:
 
 ## <u>Endpoints</u> :
 - /users
-    - / : get all users
+    - GET / : get all users
 - /auth
-  - /signup
-  - /signin
-  - /signout
-  - /test : test page to test guard
+  - POST /signup
+  - POST /signin
+  - POST /signout
+  - GET /test : test page to test guard
 
 ## <u>workflow</u> :
 1. entity
