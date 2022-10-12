@@ -3,7 +3,7 @@ download npm packages:
 `npm install`
 
 copy the '.env.sample' file to '.env' before running any script
-`cp .env_sample .env`
+`cp .env.sample .env`
 
 run development:
 `npm run start:dev`
@@ -17,6 +17,8 @@ run test:
 - /auth
   - /signup
   - /signin
+  - /signout
+  - /test : test page to test guard
 
 ## <u>workflow</u> :
 1. entity
