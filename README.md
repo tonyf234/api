@@ -25,3 +25,7 @@ run test:
 4. controller
 5. router
 6. app
+
+***
+Project info:
+- 1 high vulnerability (faker)
