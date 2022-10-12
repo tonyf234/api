@@ -34,5 +34,11 @@ run test:
 6. app
 
 ***
+Feature ideas:
+- admin guard for routes .../users/
+- number of users connected in .../users/connected
+- see your user profil in .../users/me
+
+***
 Project info:
 - 1 high vulnerability (faker)
