@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
-const {DataTypes} = require("sequelize");
 
 const reportTypes = ['nature', 'obstacle', 'infrastructure', 'dumping', 'association'];
 
@@ -28,6 +27,10 @@ const Report = sequelize.define('report', {
         type: Sequelize.DECIMAL(11,2),
         allowNull: true,
     },
+    userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    }
 });
 
 module.exports = Report;
