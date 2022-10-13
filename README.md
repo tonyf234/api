@@ -57,6 +57,7 @@ run test:
 ## Dependency graph
 run this command to generate the .svg file `npm run dependency`
 (required `depcruise` and `dot` commands)
+
 ![api dependency graph](dependencygraph.svg)
 
 
