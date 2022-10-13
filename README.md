@@ -28,6 +28,14 @@ run test:
     - authentication required
   - /test (GET) : test page to test guard
     - authentication required
+- /reports
+  - / (GET) : get all reports
+    - admin required
+  - /me (GET) : get user reports
+    - authentication required
+  - /send (POST)
+    - required fields : type ('nature'| 'obstacle'| 'infrastructure'| 'dumping'| 'association')
+    - authentication required
 
 ## Dependency graph
 run this command to generate the .svg file `npm run dependency`
