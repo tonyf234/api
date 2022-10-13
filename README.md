@@ -14,20 +14,26 @@ run test:
 ## <u>Endpoints</u> :
 - /users
     - / (GET) : get all users
-		- admin required
-	- /connected (GET) : get number of user connected
-	- /me (GET) : get user personal info
-		- authentication required
+        - admin required
+    - /connected (GET) : get number of user connected
+    - /me (GET) : get user personal info
+        - authentication required
 - /auth
   - /signup (POST)
     - fields required: firsname, lastname, email and/or phone, password
-	- addictional fields: birthdate, pref ('phone'|'email')
+    - addictional fields: birthdate, pref ('phone'|'email')
   - /signin (POST)
-	- fields required: email or phone, password
+    - fields required: email or phone, password
   - /signout (POST)
-	- authentication required
+    - authentication required
   - /test (GET) : test page to test guard
-	- authentication required
+    - authentication required
+
+## Dependency graph
+run this command to generate the .svg file `npm run dependency`
+(required `depcruise` and `dot` commands)
+![api dependency graph](dependencygraph.svg)
+
 
 ## <u>workflow</u> :
 1. entity
@@ -44,3 +50,6 @@ Feature ideas:
 ***
 Project info:
 - 1 high vulnerability (faker)
+
+
+
