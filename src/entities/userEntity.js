@@ -30,7 +30,7 @@ const User = sequelize.define('user', {
         allowNull: false,
     },
     birthdate: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         allowNull: true,
     }
 });
