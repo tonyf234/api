@@ -106,7 +106,7 @@ const signinEmail = async (req, res, next) => {
     if (!password)
         missingFields.password = 'password is missing';
 
-    if (missingFields.length)
+    if (Object.entries(missingFields).length)
         return res.status(400).send(missingFields);
     const userId = await authService.signinEmail(email, password)
     return userId;
@@ -125,7 +125,7 @@ exports.signin = async (req, res, next) => {
     if (!password)
         missingFields.password = 'password is missing';
 
-    if (missingFields.length)
+    if (Object.entries(missingFields).length)
         return res.status(400).send(missingFields);
 
     let userId = 0;
